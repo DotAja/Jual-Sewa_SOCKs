@@ -49,6 +49,9 @@ external: ens6
 method: username
 
 clientmethod: none
+user.privileged: root
+user.notprivileged: nobody
+user.libwrap: nobody
 
 client pass {
     from: 0.0.0.0/0 to: 0.0.0.0/0
