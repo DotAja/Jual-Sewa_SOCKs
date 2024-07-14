@@ -1,5 +1,4 @@
 #!/bin/bash
-
 clear
 read -p "Socks name: " ngaran
 read -p "Socks pass: " sentot
