@@ -76,7 +76,6 @@ echo "$ngaran:$sentot" | sudo chpasswd
 echo "$NEW_SOCKD" | sudo tee "$JALUR_SOCKD" > /dev/null
 
 sudo systemctl restart danted > /dev/null
-
 clear
 
 echo "======================PROXY SOCKS====================="
