@@ -6,6 +6,7 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 
+clear
 echo -e "${BLUE}==============================${NC}"
 echo -e "${GREEN}    Auto Script Socks Proxy   ${NC}"
 echo -e "${GREEN}      CREATED BY DOT AJA      ${NC}"
