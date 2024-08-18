@@ -1,74 +1,42 @@
 #!/bin/bash
 
-clear
-echo "==================CREATED BY DOT AJA=================="
-echo "NOTE: masukan alamat ip sesuai urutan dari cloudsigma"
-read -p "Masukkan alamat IP 1: " ip1
-read -p "Masukkan alamat IP 2: " ip2
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m'
 
-sleep 3
+echo -e "${BLUE}==============================${NC}"
+echo -e "${GREEN}    Auto Script Socks Proxy   ${NC}"
+echo -e "${GREEN}      CREATED BY DOT AJA      ${NC}"
+echo -e "${BLUE}==============================${NC}"
+echo -e "${YELLOW}1)${NC} ${GREEN}Socks 1 Proxy${NC}"
+echo -e "${YELLOW}2)${NC} ${GREEN}Socks 2 Proxy${NC}"
+echo -e "${YELLOW}3)${NC} ${GREEN}Socks 3 Proxy${NC}"
+echo -e "${YELLOW}4)${NC} ${GREEN}Socks 4 Proxy${NC}"
+echo -e "${YELLOW}5)${NC} ${RED}keluar${NC}"
+echo -e "${BLUE}==============================${NC}"
 
-clear
-read -p "Socks name: " ngaran
-read -p "Socks pass: " sentot
+read -p "Pilih Instalasi: " choice
 
-clear
-echo "Sedang instalasi..."
-
-apt update > /dev/null 2>&1
-apt install dante-server > /dev/null 2>&1
-
-clear
-echo "Setup network..."
-
-sudo ip addr add $ip2/24 dev ens4 > /dev/null 2>&1
-
-clear
-echo "Network sukses..."
-
-JALUR_DANTED="/etc/danted.conf"
-JALUR_SOCKD="/etc/pam.d/sockd"
-
-NEW_DANTED="
-internal: ens3 port = 1080
-external: ens3
-
-internal: ens4 port = 1080
-external: ens4
-
-method: username
-
-clientmethod: none
-user.privileged: root
-user.notprivileged: nobody
-user.libwrap: nobody
-
-client pass {
-    from: 0.0.0.0/0 to: 0.0.0.0/0
-    log: connect disconnect error
-}
-
-pass {
-    from: 0.0.0.0/0 to: 0.0.0.0/0
-    protocol: tcp udp
-}"
-
-NEW_SOCKD="
-auth       required     pam_unix.so
-account    required     pam_unix.so
-"
-
-echo "$NEW_DANTED" | sudo tee "$JALUR_DANTED" > /dev/null
-
-sudo useradd -m -s /bin/false $ngaran
-echo "$ngaran:$sentot" | sudo chpasswd
-
-echo "$NEW_SOCKD" | sudo tee "$JALUR_SOCKD" > /dev/null
-
-sudo systemctl restart danted > /dev/null
-clear
-
-echo "======================PROXY SOCKS====================="
-echo "$ip1:1080:$ngaran:$sentot"
-echo "$ip2:1080:$ngaran:$sentot"
-echo "==================CREATED BY DOT AJA=================="
+case $choice in
+    1)
+        bash -c "$(wget -qO- https://raw.githubusercontent.com/DotAja/all-in-one/main/All-IP/1-IP.sh)"
+        ;;
+    2)
+        bash -c "$(wget -qO- https://raw.githubusercontent.com/DotAja/all-in-one/main/All-IP/2-IP.sh)"
+        ;;
+    3)
+        bash -c "$(wget -qO- https://raw.githubusercontent.com/DotAja/all-in-one/main/All-IP/3-IP.sh)"
+        ;;
+    4)
+        bash -c "$(wget -qO- https://raw.githubusercontent.com/DotAja/all-in-one/main/All-IP/4-IP.sh)"
+        ;;
+    5)
+        echo -e "${RED}Keluar...${NC}"
+        exit 0
+        ;;
+    *)
+        echo -e "${RED}Pilihan tidak valid.${NC}"
+        ;;
+esac
